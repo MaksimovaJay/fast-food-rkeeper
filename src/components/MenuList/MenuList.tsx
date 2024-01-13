@@ -20,7 +20,7 @@ function MenuList(){
 
   return (
     <>
-    <div className="menuItems">
+    <div className="menuList">
       <MenuItem name={ITEMS[0].name}  price={ITEMS[0].price} image={ITEMS[0].image} />
       <MenuItem name={ITEMS[1].name}  price={ITEMS[1].price} image={ITEMS[1].image} />
       <MenuItem name={ITEMS[2].name}  price={ITEMS[2].price} image={ITEMS[2].image} />
