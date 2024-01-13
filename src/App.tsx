@@ -12,6 +12,16 @@ interface OrderItemType {
 }
 
 const App: React.FC = () => {
+  const recalculateTotalPrice = (orderItemsCopy: OrderItemType[]) => {
+    totalPrice = 0;
+
+    for (let i: number = 0; i < orderItemsCopy.length; i++) {
+      console.log(orderItemsCopy[i])
+      console.log(`${orderItemsCopy[i].count} + ${orderItemsCopy[i].price}`);
+      totalPrice = totalPrice + orderItemsCopy[i].count * orderItemsCopy[i].price;
+    }
+  }
+
   const increaseOrderCount = (itemId: string) => {
     const orderItemsCopy = [...orderItems];
 
@@ -24,13 +34,7 @@ const App: React.FC = () => {
       }
     }
 
-    totalPrice = 0;
-
-    for (let i: number = 0; i < orderItems.length; i++) {
-      console.log(orderItemsCopy[i])
-      console.log(`${orderItemsCopy[i].count} + ${orderItemsCopy[i].price}`);
-      totalPrice = totalPrice + orderItemsCopy[i].count * orderItemsCopy[i].price;
-    }
+    recalculateTotalPrice(orderItemsCopy);
   }
 
   const DecreaseOrderCount = (itemId: string) => {
@@ -45,13 +49,7 @@ const App: React.FC = () => {
       }
     }
 
-    totalPrice = 0;
-
-    for (let i: number = 0; i < orderItems.length; i++) {
-      console.log(orderItemsCopy[i])
-      console.log(`${orderItemsCopy[i].count} + ${orderItemsCopy[i].price}`);
-      totalPrice = totalPrice + orderItemsCopy[i].count * orderItemsCopy[i].price;
-    }
+    recalculateTotalPrice(orderItemsCopy);
   }
 
   const [orderItems, setOrderItems] = useState<OrderItemType[]>([
