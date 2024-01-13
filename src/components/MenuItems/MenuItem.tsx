@@ -4,12 +4,14 @@ interface Props {
   name: string;
   price: number;
   image: string;
+  onBlockClick: () => void;
+  id: string;
 }
 
 const MenuItem: React.FC<Props> = props => {
   return (
     <>
-      <div className="menuItem">
+      <div onClick={props.onBlockClick} className="menuItem" id={props.id}>
         <img alt="foodImage" src={props.image}/>
         <div className="menuItemContent">
           <h3>{props.name}</h3>

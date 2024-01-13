@@ -42,5 +42,9 @@
 }
 .menuItem p {
   color: black;
-
+}
+.orderItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

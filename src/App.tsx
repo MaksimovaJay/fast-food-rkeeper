@@ -1,15 +1,73 @@
 import './App.css'
 import MenuList from "./components/MenuList/MenuList";
 import OrderDetails from "./components/OrderDetails/OrderDetails";
+import React, {useState} from 'react';
 
 let totalPrice: number = 0;
-function App() {
+
+interface OrderItemType {
+  name: string;
+  count: number;
+  price: number;
+}
+
+const App: React.FC = () => {
+  const increaseOrderCount = (itemId: string) => {
+    const orderItemsCopy = [...orderItems];
+
+    for (let i:number = 0; i < orderItemsCopy.length; i++) {
+      const itemCopy = {...orderItemsCopy[i]};
+      if (itemId === orderItemsCopy[i].name) {
+        itemCopy.count += 1;
+        orderItemsCopy[i] = itemCopy;
+        setOrderItems(orderItemsCopy);
+      }
+    }
+
+    totalPrice = 0;
+
+    for (let i: number = 0; i < orderItems.length; i++) {
+      console.log(orderItemsCopy[i])
+      console.log(`${orderItemsCopy[i].count} + ${orderItemsCopy[i].price}`);
+      totalPrice = totalPrice + orderItemsCopy[i].count * orderItemsCopy[i].price;
+    }
+  }
+
+  const DecreaseOrderCount = (itemId: string) => {
+    const orderItemsCopy = [...orderItems];
+
+    for (let i:number = 0; i < orderItemsCopy.length; i++) {
+      const itemCopy = {...orderItemsCopy[i]};
+      if (itemId === orderItemsCopy[i].name) {
+        itemCopy.count = 0;
+        orderItemsCopy[i] = itemCopy;
+        setOrderItems(orderItemsCopy);
+      }
+    }
+
+    totalPrice = 0;
+
+    for (let i: number = 0; i < orderItems.length; i++) {
+      console.log(orderItemsCopy[i])
+      console.log(`${orderItemsCopy[i].count} + ${orderItemsCopy[i].price}`);
+      totalPrice = totalPrice + orderItemsCopy[i].count * orderItemsCopy[i].price;
+    }
+  }
+
+  const [orderItems, setOrderItems] = useState<OrderItemType[]>([
+    { name: 'Hamburger', count: 0, price: 80 },
+    { name: 'CheeseBurger', count: 0, price: 90 },
+    { name: 'Fries', count: 0, price: 45 },
+    { name: 'Coffee', count: 0, price: 70 },
+    { name: 'Tea', count: 0, price: 50 },
+    { name: 'Cola', count: 0, price: 40 }
+  ]);
 
   return (
     <>
       <div className="wrapper">
-      <OrderDetails totalPrice={totalPrice} />
-      <MenuList />
+        <OrderDetails totalPrice={totalPrice} orderItems={[orderItems, setOrderItems]} onRemoveButtonClick={DecreaseOrderCount} />
+        <MenuList onMenuItemClick={increaseOrderCount} />
       </div>
     </>
   )
